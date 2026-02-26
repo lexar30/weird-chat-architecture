@@ -1,0 +1,89 @@
+/*
+ * Basic styling for the web chat.  The UI uses a simple column layout for the
+ * connection screen and chat screen.  The messages area is scrollable to
+ * accommodate long conversations, and the input area stays anchored at the
+ * bottom of the window.  Responsive rules adjust the height of the
+ * message pane for small screens.
+ */
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+#connect-screen, #chat-screen {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+textarea,
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 16px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #1976d2;
+  color: #fff;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1565c0;
+}
+
+.messages {
+  height: 60vh;
+  border: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.message {
+  margin-bottom: 8px;
+}
+
+.message-author {
+  font-weight: bold;
+}
+
+.message-text {
+  display: inline;
+}
+
+.hidden {
+  display: none;
+}
+
+.error {
+  color: #d32f2f;
+  margin-top: 10px;
+}
+
+#chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+  .messages {
+    height: 50vh;
+  }
+}

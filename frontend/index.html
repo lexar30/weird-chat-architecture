@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Web Chat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Connection screen -->
+  <div id="connect-screen">
+    <h1>Web Chat</h1>
+    <label for="serviceKey">Service Account Key (JSON)</label><br>
+    <textarea id="serviceKey" placeholder="Paste your service account JSON here" rows="10"></textarea><br>
+    <label for="userName">Name</label><br>
+    <input type="text" id="userName" placeholder="Your name"><br>
+    <label for="seed">Seed (Encryption Key)</label><br>
+    <input type="password" id="seed" placeholder="Encryption seed"><br>
+    <button id="connectBtn">CONNECT</button>
+    <div id="connectError" class="error"></div>
+  </div>
+
+  <!-- Chat screen -->
+  <div id="chat-screen" class="hidden">
+    <div id="chat-header">
+      <span id="chatTitle">Chat</span>
+      <button id="disconnectBtn" title="Disconnect">Disconnect</button>
+    </div>
+    <div id="messages" class="messages"></div>
+    <div id="input-area">
+      <input type="text" id="messageInput" maxlength="1000" placeholder="Type a message">
+      <button id="sendBtn">SEND</button>
+      <button id="spinBtn">SPIN</button>
+    </div>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script src="crypto.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
