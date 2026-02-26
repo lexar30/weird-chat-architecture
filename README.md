@@ -52,29 +52,28 @@ This project implements a simple web chat in which all messages are stored in Go
 
 ## Deploying on GitHub Pages
 
-1. Create a new repository on GitHub and add the contents of the `frontend` folder to it. The project tree should look like this:
+1. Create a new repository on GitHub. The project tree should look like this:
 
 ```
 project-root/
-├── frontend/
-│   ├── index.html
-│   ├── app.js
-│   ├── crypto.js
-│   └── styles.css
+├── index.html
+├── app.js
+├── crypto.js
+├── styles.css
 ├── README.md
 └── setup-guide.md
 ```
 
-2. Commit and push the repository. In the GitHub repository settings go to the **Pages** section and choose to publish from the `main` branch (or another if you use one) and the `/frontend` folder. After activation you will receive a public URL of the form `https://username.github.io/repo`. The chat will be available at this address.
+2. Commit and push the repository. In the GitHub repository settings go to the **Pages** section and choose to publish from the `main` branch (or another if you use one). After activation you will receive a public URL of the form `https://username.github.io/repo`. The chat will be available at this address.
 
 3. Opening the web page, the user enters the service account JSON key, their name, the spreadsheet identifier (the `Spreadsheet ID` field) and the shared encryption `Seed`. With a successful connection, the message history is displayed. To give others access simply share the same JSON key, spreadsheet identifier and `Seed`.
 
 ## Files
 
-- `frontend/index.html` — the main HTML file with two screens (connection and chat).
-- `frontend/styles.css` — styles for the connection form and chat window.
-- `frontend/crypto.js` — cryptographic functions: deriving a key via PBKDF2/AES-GCM and Base64 encoding/decoding.
-- `frontend/app.js` — application logic: authorisation via service account, requests to the Google Sheets API, sending and receiving messages, UI.
+- `index.html` — the main HTML file with two screens (connection and chat).
+- `styles.css` — styles for the connection form and chat window.
+- `crypto.js` — cryptographic functions: deriving a key via PBKDF2/AES-GCM and Base64 encoding/decoding.
+- `app.js` — application logic: authorisation via service account, requests to the Google Sheets API, sending and receiving messages, UI.
 - `README.md` — this document describing the project and security warnings.
 - `setup-guide.md` — a detailed step-by-step guide for configuring the service account, spreadsheet and deployment.
 
