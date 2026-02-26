@@ -8,10 +8,9 @@
 (function () {
   'use strict';
 
-  // Spreadsheet identifier (to be provided by the deployer).  Replace the
-  // placeholder string below with your Google Spreadsheet ID.  The ID is the
-  // portion of the sheet's URL between "/d/" and "/edit".
-  const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
+  // Spreadsheet identifier provided by the user at runtime.  This value is
+  // captured from the connection form and stored in the variable `sheetId`.
+  let sheetId = '';
   const SHEET_NAME = 'messages';
   const POLL_INTERVAL_MS = 10000;
   const SPIN_SYMBOLS = ['➉︎', '❤︎', '☮︎', '☆︎'];
@@ -142,7 +141,7 @@
    * @returns {Promise<Array>} An array of rows (each a string array).
    */
   async function fetchAllRows() {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!A:D`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${SHEET_NAME}!A:D`;
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${accessToken}` }
     });
@@ -162,7 +161,7 @@
    * @param {Array<string>} row The data for a single row.
    */
   async function appendRow(row) {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${SHEET_NAME}!A:D:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${SHEET_NAME}!A:D:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
     const body = { values: [row] };
     const res = await fetch(url, {
       method: 'POST',
@@ -290,11 +289,12 @@
   async function connect() {
     const keyText = document.getElementById('serviceKey').value.trim();
     const name = document.getElementById('userName').value.trim();
+    const idVal = document.getElementById('sheetId').value.trim();
     const seed = document.getElementById('seed').value;
     const errorDiv = document.getElementById('connectError');
     errorDiv.textContent = '';
-    if (!keyText || !name || !seed) {
-      errorDiv.textContent = 'Please provide all fields.';
+    if (!keyText || !name || !idVal || !seed) {
+      errorDiv.textContent = 'Please provide all fields, including the spreadsheet ID.';
       return;
     }
     try {
@@ -304,6 +304,7 @@
       return;
     }
     authorName = name;
+    sheetId = idVal;
     try {
       // Derive symmetric key
       encryptionKey = await deriveKey(seed);
